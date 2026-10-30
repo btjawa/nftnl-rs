@@ -86,11 +86,8 @@ macro_rules! nft_expr {
     (counter) => {
         $crate::expr::Counter
     };
-    (ct $key:ident set) => {
-        nft_expr_ct!($key set)
-    };
-    (ct $key:ident) => {
-        nft_expr_ct!($key)
+    (ct $($arg:tt)+) => {
+        nft_expr_ct!($($arg)+)
     };
     (verdict $($arg:tt)+) => {
         $crate::nft_expr_verdict!($($arg)+)
@@ -101,11 +98,8 @@ macro_rules! nft_expr {
     (masquerade) => {
         $crate::expr::Masquerade
     };
-    (meta $expr:ident set) => {
-        nft_expr_meta!($expr set)
-    };
-    (meta $expr:ident) => {
-        nft_expr_meta!($expr)
+    (meta $($arg:tt)+) => {
+        nft_expr_meta!($($arg)+)
     };
     (payload $proto:ident $field:ident) => {
         nft_expr_payload!($proto $field)
@@ -113,47 +107,8 @@ macro_rules! nft_expr {
     (payload_raw $base:ident $offset:expr, $length:expr) => {
         nft_expr_payload!($base $offset, $length)
     };
-    (tproxy port $port_register:expr) => {
-        $crate::expr::TProxy {
-            family: None,
-            addr_register: None,
-            port_register: Some($port_register),
-        }
-    };
-    (tproxy addr $addr_register:expr) => {
-        $crate::expr::TProxy {
-            family: None,
-            addr_register: Some($addr_register),
-            port_register: None,
-        }
-    };
-    (tproxy addr $addr_register:expr, port $port_register:expr) => {
-        $crate::expr::TProxy {
-            family: None,
-            addr_register: Some($addr_register),
-            port_register: Some($port_register),
-        }
-    };
-    (tproxy $family:expr, addr $addr_register:expr) => {
-        $crate::expr::TProxy {
-            family: Some($family),
-            addr_register: Some($addr_register),
-            port_register: None,
-        }
-    };
-    (tproxy $family:expr, port $port_register:expr) => {
-        $crate::expr::TProxy {
-            family: Some($family),
-            addr_register: None,
-            port_register: Some($port_register),
-        }
-    };
-    (tproxy $family:expr, addr $addr_register:expr, port $port_register:expr) => {
-        $crate::expr::TProxy {
-            family: Some($family),
-            addr_register: Some($addr_register),
-            port_register: Some($port_register),
-        }
+    (tproxy $($arg:tt)+) => {
+        $crate::nft_expr_tproxy!($($arg)+)
     };
     (immediate $expr:ident $value:expr) => {
         nft_expr_immediate!($expr $value)
