@@ -72,45 +72,45 @@ pub mod socket;
 #[cfg_attr(not(socketexpr), allow(unused_imports))]
 pub use self::socket::*;
 
-#[macro_export(local_inner_macros)]
+#[macro_export]
 macro_rules! nft_expr {
     (bitwise mask $mask:expr,xor $xor:expr) => {
-        nft_expr_bitwise!(mask $mask, xor $xor)
+        $crate::nft_expr_bitwise!(mask $mask, xor $xor)
     };
     (socket $key:tt level $level:expr) => {
-        nft_expr_socket!(socket $key level $level)
+        $crate::nft_expr_socket!(socket $key level $level)
     };
     (cmp $op:tt $data:expr) => {
-        nft_expr_cmp!($op $data)
+        $crate::nft_expr_cmp!($op $data)
     };
     (counter) => {
         $crate::expr::Counter
     };
     (ct $($arg:tt)+) => {
-        nft_expr_ct!($($arg)+)
+        $crate::nft_expr_ct!($($arg)+)
     };
     (verdict $($arg:tt)+) => {
         $crate::nft_expr_verdict!($($arg)+)
     };
     (lookup $set:expr) => {
-        nft_expr_lookup!($set)
+        $crate::nft_expr_lookup!($set)
     };
     (masquerade) => {
         $crate::expr::Masquerade
     };
     (meta $($arg:tt)+) => {
-        nft_expr_meta!($($arg)+)
+        $crate::nft_expr_meta!($($arg)+)
     };
     (payload $proto:ident $field:ident) => {
-        nft_expr_payload!($proto $field)
+        $crate::nft_expr_payload!($proto $field)
     };
     (payload_raw $base:ident $offset:expr, $length:expr) => {
-        nft_expr_payload!($base $offset, $length)
+        $crate::nft_expr_payload!($base $offset, $length)
     };
     (tproxy $($arg:tt)+) => {
         $crate::nft_expr_tproxy!($($arg)+)
     };
     (immediate $expr:ident $value:expr) => {
-        nft_expr_immediate!($expr $value)
+        $crate::nft_expr_immediate!($expr $value)
     };
 }
