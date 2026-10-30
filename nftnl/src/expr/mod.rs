@@ -92,11 +92,8 @@ macro_rules! nft_expr {
     (ct $key:ident) => {
         nft_expr_ct!($key)
     };
-    (verdict $verdict:ident) => {
-        nft_expr_verdict!($verdict)
-    };
-    (verdict $verdict:ident $chain:expr) => {
-        nft_expr_verdict!($verdict $chain)
+    (verdict $($arg:tt)+) => {
+        $crate::nft_expr_verdict!($($arg)+)
     };
     (lookup $set:expr) => {
         nft_expr_lookup!($set)
